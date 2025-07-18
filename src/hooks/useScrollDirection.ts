@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const useScrollDirection = () => {
   const [isScrollingDown, setIsScrollingDown] = useState(false);
   const lastScrollY = useRef(0);
+  const targetRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
@@ -19,7 +20,7 @@ const useScrollDirection = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  return isScrollingDown;
+  return { isScrollingDown, targetRef };
 };
 
 export default useScrollDirection;

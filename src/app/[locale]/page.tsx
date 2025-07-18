@@ -59,7 +59,7 @@ export default function Home() {
       key={product.id}
       product={product}
       className={cn(
-        "sm:!w-[49%] md:!w-[49%] lg:!w-[32%] xl:!w-[24%] !w-[48%] [&_.ant-card-body]:p-[12px] [&_.ant-card-body]:sm:p-[24px]"
+        "w-auto [&_.ant-card-body]:p-[12px] [&_.ant-card-body]:sm:p-[24px]"
       )}
       loadMore={handleLoadMore}
     />
@@ -70,7 +70,7 @@ export default function Home() {
   }, []);
 
   return (
-    <Layout rootClassName="bg-[#F4F6F8]">
+    <Layout rootClassName="bg-[#F4F6F8] px-[8px]">
       <Layout className="mx-auto container">
         <Breadcrumb />
         <Banner />
@@ -87,7 +87,7 @@ export default function Home() {
         <SideBar data={initialProducts} />
         <Content className="p-[12px] pb-[12px] lg:p-[0_0_0_20px] rounded-[8px] bg-white lg:bg-[#F4F6F8]">
           <ProductSortBar onSortChange={() => {}} />
-          <div className="flex flex-wrap gap-[12px]" id="list">
+          <div className="grid grid-cols-2  sm:grid-cols-3 xl:grid-cols-4 gap-[12px]">
             {data.map(renderProduct)}
           </div>
           {loading && <Skeleton className="mt-[24px]" />}

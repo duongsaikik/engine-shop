@@ -14,12 +14,12 @@ export default {
       },
       colors: {
         // Brand/Theme
-        background: "#ffffff",      // previously var(--background)
-        foreground: "#171717",      // previously var(--foreground)
-        textPrimary: "#1C252E",     // previously var(--text-primary)
+        background: "#ffffff",
+        foreground: "#171717",
+        textPrimary: "#1C252E",
         textSecondary: "#637381",
         textDisabled: "#919EAB",
-
+        brandBlue: "#0373F3",
         // Status
         errorDark: "#B71D18",
         errorDarker: "#7A0916",
@@ -42,10 +42,11 @@ export default {
         gradientVia: "#37CFFF",
         gradientTo: "#0F5ED6",
         white: "#FFFFFF",
-        gray500: "#6B7280", // Tailwind default
-        gray700: "#374151", // Tailwind default
-        blue50: "#EFF6FF",  // Tailwind default
+        gray500: "#6B7280",
+        gray700: "#374151",
+        blue50: "#EFF6FF",
         svgMask: "#D9D9D9",
+        cartRed: "#FF5630",
       },
     },
   },

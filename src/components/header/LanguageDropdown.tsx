@@ -1,17 +1,23 @@
-import { Dropdown, MenuProps } from "antd";
-import Image from "next/image";
+import { Dropdown, MenuProps } from 'antd';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import styles from './styles.module.css';
+import { cn } from '@/utils/common';
 
 interface LanguageDropdownProps {
   locale: string;
   supportedLanguages: string[];
   changeLanguage: (locale: string) => void;
+  className?: string;
 }
 
 const LanguageDropdown = ({
   locale,
   supportedLanguages,
   changeLanguage,
+  className,
 }: LanguageDropdownProps) => {
+  const t = useTranslations();
   const languageMenu: MenuProps = {
     items: supportedLanguages?.map((loc: string) => ({
       key: loc,
@@ -22,21 +28,23 @@ const LanguageDropdown = ({
   return (
     <Dropdown
       menu={languageMenu}
-      trigger={["click"]}
-      className="text-textPrimary hover:bg-hover cursor-pointer p-[4px] rounded-[8px] transition-all duration-200"
+      trigger={['click']}
+      className={cn(
+        className,
+        'cursor-pointer text-textPrimary transition-all duration-200',
+        styles.buttonIcon
+      )}
     >
-      <div className="row gap-[8px]">
+      <div title={t('language')} className="row gap-[8px]">
         <Image
-          className="cursor-pointer rounded-full xl:size-[36px] sm:size-[28px] size-[24px]"
-          src={locale === "en" ? "/england-flag.png" : "/vietnam-flag.png"}
+          className="size-[24px] cursor-pointer rounded-full sm:size-[30px] xl:size-[36px]"
+          src={locale === 'en' ? '/england-flag.png' : '/vietnam-flag.png'}
           width={36}
           height={36}
           alt="flag"
         />
-        <span className="hidden lg:flex items-center space-x-1 cursor-pointer">
-          <span className="text-textPrimary font-[500]">
-            {locale?.toUpperCase()}
-          </span>
+        <span className="hidden cursor-pointer items-center space-x-1 xl:flex">
+          <span className="font-[500] text-textPrimary">{locale?.toUpperCase()}</span>
         </span>
       </div>
     </Dropdown>

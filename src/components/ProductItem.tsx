@@ -60,7 +60,10 @@ const ProductItem: React.FC<Props> = ({
           className="object-contain mx-auto"
         />
       }
-      className={cn(className, "rounded-lg w-[252px] shadow-md [&_.ant-card-body]:p-[12px] [&_.ant-card-body]:sm:p-[24px]")}
+      className={cn(
+        className,
+        "rounded-lg shadow-md [&_.ant-card-body]:p-[12px] [&_.ant-card-body]:sm:p-[24px]"
+      )}
     >
       <Card.Meta
         title={

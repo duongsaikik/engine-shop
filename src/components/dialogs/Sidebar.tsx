@@ -12,10 +12,16 @@ import Link from "next/link";
 import { useMemo } from "react";
 import { FaPhoneAlt } from "react-icons/fa";
 import { HiDownload } from "react-icons/hi";
+import { useLocale } from "next-intl";
+import { useRouter } from "next/navigation";
+import { SUPPORTED_LANGUAGES } from "@/utils/constants";
+import LanguageDropdown from "../header/LanguageDropdown";
 
 const SideBar = NiceModal.create(() => {
   const modal = useModal();
   const t = useTranslations();
+  const locale = useLocale();
+  const router = useRouter();
 
   const services = useMemo(
     () => [
@@ -103,8 +109,9 @@ const SideBar = NiceModal.create(() => {
       {
         key: "1",
         label: t("header.menu.category"),
-        classNames:{
-          header:'[&_.ant-collapse-header-text]:font-[600] [&_.ant-collapse-header-text]:text-[16px]'
+        classNames: {
+          header:
+            "[&_.ant-collapse-header-text]:font-[600] [&_.ant-collapse-header-text]:text-[16px]",
         },
         children: (
           <div className="rounded-lg bg-[#eaeffa]">
@@ -121,7 +128,7 @@ const SideBar = NiceModal.create(() => {
       <Link
         key={menu.label}
         href={menu.url}
-        className="text-textPrimary text-[16px] whitespace-nowrap p-[4px_12px] hover:bg-gray-100 w-full rounded-[8px] font-[500] hight-light"
+        className="text-textPrimary hover:text-textPrimary text-[16px] whitespace-nowrap p-[8px_12px] w-full rounded-[8px] font-[500] hightLight"
       >
         {t(menu.label)}
       </Link>
@@ -142,21 +149,37 @@ const SideBar = NiceModal.create(() => {
     );
   };
 
+  const changeLanguage = (locale: string) => {
+    const currentPath = window.location.pathname.replace(/^\/[a-z]{2}/, "");
+    router.push(`/${locale}${currentPath}`);
+  };
+
   return (
     <Drawer
       className="[&_.ant-drawer-content-wrapper]:!w-full [&_.ant-drawer-content-wrapper]:sm:!w-[50%] [&_.ant-drawer-header-title]:flex-row-reverse [&_.ant-drawer-close]:!m-0"
-      classNames={{ body: "!p-0", footer: "flex justify-end" }}
+      classNames={{
+        body: "!p-[8px]",
+        footer: "flex justify-end",
+        header: "!p-[8px_16px]",
+      }}
       title={
-        <Image
-          src={"/logo.png"}
-          style={{
-            clipPath: "ellipse(45% 40% at 50% 50%)",
-          }}
-          width={1700}
-          height={883}
-          alt="logo"
-          className="w-[100px] cursor-pointer"
-        />
+        <div className="flex justify-between items-center mr-[12px]">
+          <Image
+            src={"/logo.png"}
+            style={{
+              clipPath: "ellipse(45% 40% at 50% 50%)",
+            }}
+            width={1700}
+            height={883}
+            alt="logo"
+            className="w-[100px] cursor-pointer"
+          />
+          <LanguageDropdown
+            locale={locale}
+            supportedLanguages={SUPPORTED_LANGUAGES as unknown as string[]}
+            changeLanguage={changeLanguage}
+          />
+        </div>
       }
       open={modal.visible}
       onClose={modal.hide}
@@ -168,7 +191,7 @@ const SideBar = NiceModal.create(() => {
         </Button>,
       ]}
     >
-      <div className="flex items-center flex-col gap-[20px]">
+      <div className="flex flex-col items-center gap-[20px]">
         {MENU.map(renderMenu)}
       </div>
       <Divider className="my-[8px]" />
@@ -178,7 +201,6 @@ const SideBar = NiceModal.create(() => {
         ghost
         items={originItems}
         className="123"
-
       />
       <Divider className="my-[8px]" />
       <div className="text-textPrimary flex-wrap flex justify-between gap-[20px]">
